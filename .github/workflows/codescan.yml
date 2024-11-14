@@ -60,3 +60,22 @@ jobs:
       # Perform GitHub Code Scanning.
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
+
+      - name: Upload SARIF Results as Artifact
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: sarif-results
+          path: |
+            /home/runner/work/DSpace/results/java.sarif
+            /home/runner/work/DSpace/results/javascript.sarif
+            /home/runner/work/_temp/combined-sarif/output-qgsAJF/combined-sarif.sarif
+
+      - name: Upload CodeQL Databases as Artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: codeql-databases
+          path: |
+            /home/runner/work/_temp/codeql_databases/java.zip
+            /home/runner/work/_temp/codeql_databases/javascript.zip
